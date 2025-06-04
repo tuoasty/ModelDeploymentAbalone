@@ -1,0 +1,24 @@
+services:
+  abalone-backend:
+    build: ./abalone-backend
+    container_name: abalone-backend
+    ports: 
+      - "8000:8000"
+    volumes:
+      - ./abalone-backend:/app
+    networks:
+      - app-network
+
+  abalone-frontend:
+    build: ./abalone-frontend
+    container_name: abalone-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - abalone-backend
+    networks:
+      - app-network
+    
+networks:
+  app-network:
+    driver: bridge
